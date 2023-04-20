@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-Cache-Ciudad">
+    <DisplayName>AM-Cache-Ciudad</DisplayName>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <AssignVariable>
+        <Name>cached.my.city</Name>
+        <Ref>city</Ref>
+    </AssignVariable>
+</AssignMessage>

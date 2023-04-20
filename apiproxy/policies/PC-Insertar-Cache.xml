@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache continueOnError="false" enabled="true" name="PC-Insertar-Cache">
+    <DisplayName>PC-Insertar-Cache</DisplayName>
+    <CacheResource>cache1</CacheResource>
+    <CacheKey>
+        <Prefix>var</Prefix>
+        <KeyFragment ref="key"/>
+    </CacheKey>
+    <Scope>Application</Scope>
+    <ExpirySettings>
+        <TimeoutInSec>60</TimeoutInSec>
+    </ExpirySettings>
+    <Source>city</Source>
+</PopulateCache>

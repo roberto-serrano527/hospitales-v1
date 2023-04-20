@@ -1,0 +1,465 @@
+openapi: 3.0.0
+info:
+  title: Pacientes
+  description: API para realizar operaciones CRUD en pacientes
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/hospitales/v1
+tags:
+- name: Pacientes
+  description: CRUD en pacientes.
+paths:
+  /pacientes:
+    get:
+      summary: Obtener todos los pacientes
+      description: Retorna una lista de todos los pacientes registrados en el sistema
+      tags:
+        - Pacientes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Paciente'
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    post:
+      summary: Crear un nuevo paciente
+      description: Crea un nuevo paciente con la información proporcionada
+      tags:
+        - Pacientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacienteInput'
+      responses:
+        '201':
+          description: Creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paciente'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /pacientes/{id}:
+    get:
+      summary: Obtener un paciente por su ID
+      description: Retorna la información de un paciente dado su ID
+      tags:
+        - Pacientes
+      parameters:
+        - name: id
+          in: path
+          description: ID del paciente
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paciente'
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    put:
+      summary: Actualizar un paciente existente
+      description: Actualiza la información de un paciente existente
+      tags:
+        - Pacientes
+      parameters:
+        - name: id
+          in: path
+          description: ID del paciente
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacienteInputPut'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paciente'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    delete:
+      summary: Eliminar un paciente existente
+      description: Elimina un paciente existente dado su ID
+      tags:
+        - Pacientes
+      parameters:
+        - name: id
+          in: path
+          description: ID del paciente
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Sin contenido
+        '404':
+          description: No encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    Paciente:
+      type: object
+      required:
+        - nombre
+        - apellidoPaterno
+        - fechaNacimiento
+        - contacto
+        - direccion
+        - sintomas
+      properties:
+        id:
+          type: integer
+          description: ID del paciente
+          example: 1
+        nombre:
+          type: string
+          description: Nombre del paciente
+          example: Camila
+        apellidoPaterno:
+          type: string
+          description: Apellido paterno del paciente
+          example: Hernandez
+        apellidoMaterno:
+          type: string
+          description: Apellido materno del paciente
+          example: Sanchez
+        fechaNacimiento:
+          type: string
+          format: date
+          description: Fecha de nacimiento del paciente
+          example: "1995-08-16"
+        contacto:
+          type: object
+          required:
+           - telefono
+          description: Datos de contacto del paciente
+          properties:
+            telefono:
+              type: string
+              description: Número de teléfono de contacto del paciente
+              example: "5512345678"
+            email:
+              type: string
+              format: email
+              description: Dirección de correo electrónico de contacto del paciente
+              example: juan.perez@gmail.com
+        direccion:
+          type: object
+          required:
+           - calle
+           - numero
+           - ciudad
+          properties:
+            calle:
+              type: string
+              description: Calle de la dirección del paciente
+              example: Av. Insurgentes
+            numero:
+              type: integer
+              description: Número de la dirección del paciente
+              example: 3591
+            colonia:
+              type: string
+              description: Colonia de la dirección del paciente
+              example: Roma Norte
+            ciudad:
+              type: string
+              description: Ciudad de la dirección del paciente
+              example: Ciudad de México
+        sintomas:
+          type: array
+          description: Lista de síntomas del paciente
+          items:
+            type: string
+          example: ["Fiebre", "Tos"]
+    PacienteInput:
+      type: object
+      required:
+        - nombre
+        - apellidoPaterno
+        - fechaNacimiento
+        - contacto
+        - direccion
+        - sintomas
+      properties:
+        id:
+          type: integer
+          description: ID del paciente
+          example: 1
+        nombre:
+          type: string
+          description: Nombre del paciente
+          example: Camila
+        apellidoPaterno:
+          type: string
+          description: Apellido paterno del paciente
+          example: Hernandez
+        apellidoMaterno:
+          type: string
+          description: Apellido materno del paciente
+          example: Sanchez
+        fechaNacimiento:
+          type: string
+          format: date
+          description: Fecha de nacimiento del paciente
+          example: "1995-08-16"
+        contacto:
+          type: object
+          required:
+           - telefono
+          description: Datos de contacto del paciente
+          properties:
+            telefono:
+              type: string
+              description: Número de teléfono de contacto del paciente
+              example: "5512345678"
+            email:
+              type: string
+              format: email
+              description: Dirección de correo electrónico de contacto del paciente
+              example: juan.perez@gmail.com
+        direccion:
+          type: object
+          required:
+           - calle
+           - numero
+           - ciudad
+          properties:
+            calle:
+              type: string
+              description: Calle de la dirección del paciente
+              example: Av. Insurgentes
+            numero:
+              type: integer
+              description: Número de la dirección del paciente
+              example: 3591
+            colonia:
+              type: string
+              description: Colonia de la dirección del paciente
+              example: Roma Norte
+            ciudad:
+              type: string
+              description: Ciudad de la dirección del paciente
+              example: Ciudad de México
+        sintomas:
+          type: array
+          description: Lista de síntomas del paciente
+          items:
+            type: string
+          example: ["Fiebre", "Tos"]
+    PacienteInputPut:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre del paciente
+          example: Camila
+        apellidoPaterno:
+          type: string
+          description: Apellido paterno del paciente
+          example: Hernandez
+        apellidoMaterno:
+          type: string
+          description: Apellido materno del paciente
+          example: Sanchez
+        fechaNacimiento:
+          type: string
+          format: date
+          description: Fecha de nacimiento del paciente
+          example: "1995-08-16"
+        contacto:
+          type: object
+          description: Datos de contacto del paciente
+          properties:
+            telefono:
+              type: string
+              description: Número de teléfono de contacto del paciente
+              example: "5512345678"
+            email:
+              type: string
+              format: email
+              description: Dirección de correo electrónico de contacto del paciente
+              example: juan.perez@gmail.com
+        direccion:
+          type: object
+          properties:
+            calle:
+              type: string
+              description: Calle de la dirección del paciente
+              example: Av. Insurgentes
+            numero:
+              type: integer
+              description: Número de la dirección del paciente
+              example: 3591
+            colonia:
+              type: string
+              description: Colonia de la dirección del paciente
+              example: Roma Norte
+            ciudad:
+              type: string
+              description: Ciudad de la dirección del paciente
+              example: Ciudad de México
+        sintomas:
+          type: array
+          description: Lista de síntomas del paciente
+          items:
+            type: string
+          example: ["Fiebre", "Tos"]
+    BadRequestError:
+      description: La solicitud fue incorrecta.
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 400
+        mensaje:
+          type: string
+          example: La solicitud no pudo ser procesada debido a que uno o más campos no cumplen con los requisitos esperados.
+        folio:
+          type: string
+          example: f3c91552-3e0b-4783-9d99-1a74a0a06bc7
+        errores:
+          type: array
+          items:
+            type: string
+          example: ["El campo nombre no puede ser vacio"]
+    UnauthorizedError:
+      description: No se pudo autenticar al usuario.
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 401
+        mensaje:
+          type: string
+          example: No se pudo autenticar al usuario. Verifique sus credenciales e intente de nuevo.
+        folio:
+          type: string
+          example: 4e4c90d1-3152-4a45-8f67-d6ef5d9f3057
+        errores:
+          type: array
+          items:
+            type: string
+          example: ["Credenciales no validas"]
+    NotFoundError:
+      description: El recurso solicitado no existe.
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 404
+        mensaje:
+          type: string
+          example: El recurso solicitado no fue encontrado.
+        folio:
+          type: string
+          example: 6c9d9b05-c45f-4816-a8a6-5067f59b2d01
+        errores:
+          type: array
+          items:
+            type: string
+          example: ["No se pudo encontrar el contenido solicitado."]
+    InternalServerError:
+      description: Hubo un error en el servidor.
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 500
+        mensaje:
+          type: string
+          example: Hubo un error en el servidor al procesar la solicitud. Intente de nuevo más tarde.
+        folio:
+          type: string
+          example: 1b59dbcb-7875-4bb5-ba0d-5b5c5b2f5b33
+        errores:
+          type: array
+          items:
+            type: string
+          example: ["Ocurrio una incidencia al procesar la solicitud"]
+

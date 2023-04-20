@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-Obtener-Usuario">
+    <DisplayName>EV-Obtener-Usuario</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="email">
+            <JSONPath>$.results[0].email</JSONPath>
+        </Variable>
+        <Variable name="first">
+            <JSONPath>$.results[0].name.first</JSONPath>
+        </Variable>
+        <Variable name="last">
+            <JSONPath>$.results[0].name.last</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">calloutResponseUser</Source>
+</ExtractVariables>

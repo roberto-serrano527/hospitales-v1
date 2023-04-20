@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <DefaultFaultRule name="fault-rule">
+        <Step>
+            <Condition>(raisefault.RF-ErrorGenerico.failed = true)</Condition>
+            <Name>AM-RespuestaDefault</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>OA-Verifica-Acces-Token</Name>
+            </Step>
+            <Step>
+                <Name>AM-Limpiar-Header-Autorizacion</Name>
+            </Step>
+            <Step>
+                <Name>KVM-ExtraerVariables</Name>
+            </Step>
+            <Step>
+                <Condition>(oauthV2.OA-Verifica-Acces-Token.failed = true)</Condition>
+                <Name>AM-Error-Autentificacion</Name>
+            </Step>
+            <Step>
+                <Name>LC-Ciudad</Name>
+            </Step>
+            <Step>
+                <Name>SC-Respuesta-Catapi</Name>
+                <Condition>cached.my.city = null</Condition>
+            </Step>
+            <Step>
+                <Name>EV-Obtener-Ciudad-Por-IP</Name>
+                <Condition>cached.my.city = null</Condition>
+            </Step>
+            <Step>
+                <Name>PC-Insertar-Cache</Name>
+                <Condition>cached.my.city = null</Condition>
+            </Step>
+            <Step>
+                <Name>AM-Cache-Ciudad</Name>
+            </Step>
+            <Step>
+                <Name>SC-Respuesta-User</Name>
+            </Step>
+            <Step>
+                <Name>EV-Obtener-Usuario</Name>
+            </Step>
+            <Step>
+                <Name>AM-Response-Obtener-Pacientes</Name>
+            </Step>
+            <Step>
+                <Condition>(flow.error.code != null)</Condition>
+                <Name>RF-ErrorGenerico</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="get /pacientes">
+            <Description>Obtener todos los pacientes</Description>
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AM-Response-Obtener-Pacientes</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/pacientes") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="post /pacientes">
+            <Description>Crear un nuevo paciente</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/pacientes") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="get /pacientes/{id}">
+            <Description>Obtener un paciente por su ID</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/pacientes/*") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="put /pacientes/{id}">
+            <Description>Actualizar un paciente existente</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/pacientes/*") and (request.verb = "PUT")</Condition>
+        </Flow>
+        <Flow name="delete /pacientes/{id}">
+            <Description>Eliminar un paciente existente</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/pacientes/*") and (request.verb = "DELETE")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <Name>JS-Respuesta-Mediacion</Name>
+            </Step>
+            <Step>
+                <Name>AM-Agrega-Header-Tiempo-Respuesta</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/hospitales/v1</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>

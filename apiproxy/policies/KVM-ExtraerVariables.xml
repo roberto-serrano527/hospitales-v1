@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations continueOnError="false" enabled="true" name="KVM-ExtraerVariables" mapIdentifier="key-ipstack">
+    <DisplayName>KVM-ExtraerVariables</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>8640000</ExpiryTimeInSecs>
+    <Put>
+        <Key>
+            <Parameter>key</Parameter>
+        </Key>
+        <Value>17a566da762bbf7aafc038b98e961b35</Value>
+    </Put>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

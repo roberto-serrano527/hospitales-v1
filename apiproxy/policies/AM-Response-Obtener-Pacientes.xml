@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-Response-Obtener-Pacientes">
+    <DisplayName>AM-Response-Obtener-Pacientes</DisplayName>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">application/json</Header>
+        </Headers>
+        <Payload contentType="application/json">
+            [
+              {
+                "id": 1,
+                "nombre": "{first}",
+                "apellidoPaterno": "{last}",
+                "apellidoMaterno": "Sanchez",
+                "fechaNacimiento": "1995-08-16",
+                "contacto": {
+                  "telefono": "5512345678",
+                  "email": "{email}"
+                },
+                "direccion": {
+                  "calle": "Av. Insurgentes",
+                  "numero": 3591,
+                  "colonia": "Roma Norte",
+                  "ciudad": "{city}"
+                },
+                "sintomas": [
+                  "Fiebre",
+                  "Tos"
+                ]
+              }
+            ]
+        </Payload>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>ok</ReasonPhrase>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

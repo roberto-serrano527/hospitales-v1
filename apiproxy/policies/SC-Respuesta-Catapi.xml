@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="false" enabled="true" name="SC-Respuesta-Catapi">
+    <DisplayName>SC-Request-Ciudad</DisplayName>
+    <Request>
+        <Set>
+            <Header name="Content-Type">application/json</Header>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <Verb>GET</Verb>
+        <!--
+            <URL>http://ipwho.is/{client.ip}</URL>
+        -->
+        <URL>http://ipwho.is/103.14.26.255</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

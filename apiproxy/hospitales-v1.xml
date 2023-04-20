@@ -1,0 +1,31 @@
+<APIProxy revision="16" name="hospitales-v1">
+    <DisplayName></DisplayName>
+    <Description>API para realizar operaciones CRUD en pacientes</Description>
+    <CreatedAt>1682026676404</CreatedAt>
+    <LastModifiedAt>1682026676404</LastModifiedAt>
+    <BasePaths>/hospitales/v1</BasePaths>
+    <Policies>
+        <Policy>OA-Verifica-Acces-Token</Policy>
+        <Policy>AM-Limpiar-Header-Autorizacion</Policy>
+        <Policy>AM-Error-Autentificacion</Policy>
+        <Policy>RF-ErrorGenerico</Policy>
+        <Policy>AM-RespuestaDefault</Policy>
+        <Policy>AM-Response-Obtener-Pacientes</Policy>
+        <Policy>SC-Respuesta-Catapi</Policy>
+        <Policy>EV-Obtener-Ciudad-Por-IP</Policy>
+        <Policy>KVM-ExtraerVariables</Policy>
+        <Policy>SC-Respuesta-User</Policy>
+        <Policy>EV-Obtener-Usuario</Policy>
+        <Policy>JS-Respuesta-Mediacion</Policy>
+        <Policy>AM-Agrega-Header-Tiempo-Respuesta</Policy>
+        <Policy>LC-Ciudad</Policy>
+        <Policy>PC-Insertar-Cache</Policy>
+        <Policy>AM-Cache-Ciudad</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JS-Respuesta-Mediacion.js</Resource>
+    </Resources>
+</APIProxy>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="false" enabled="true" name="SC-Respuesta-User">
+    <DisplayName>SC-Respuesta-User</DisplayName>
+    <Request>
+        <Set>
+            <Header name="Content-Type">application/json</Header>
+        </Set>
+    </Request>
+    <Response>calloutResponseUser</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <LoadBalancer>
+            <Server name="randomuser"/>
+        </LoadBalancer>
+        <Path>/api/</Path>
+    </HTTPTargetConnection>
+</ServiceCallout>

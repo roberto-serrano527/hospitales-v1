@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-Ciudad">
+    <DisplayName>LC-Ciudad</DisplayName>
+    <CacheResource>cache1</CacheResource>
+    <AssignTo>cached.my.city</AssignTo>
+    <Properties/>
+    <CacheKey>
+        <Prefix>var</Prefix>
+        <KeyFragment ref="key"/>
+    </CacheKey>
+    <Scope>Application</Scope>
+</LookupCache>

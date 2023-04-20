@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-RespuestaDefault">
+    <DisplayName>AM-RespuestaDefault</DisplayName>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">application/json</Header>
+        </Headers>
+        <Payload contentType="application/json">
+            {
+                "codigo": "{flow.error.code}",
+                "mensaje": "{flow.error.message}",
+                "folio": "{flow.error.folio}",
+                "errores": [
+                    "{flow.error.errors}"
+                ]
+            }
+        </Payload>
+        <StatusCode>{flow.error.http.code}</StatusCode>
+        <ReasonPhrase>{flow.error.http.reason}</ReasonPhrase>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

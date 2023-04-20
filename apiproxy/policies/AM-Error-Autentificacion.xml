@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-Error-Autentificacion">
+    <DisplayName>AM-Error-Autentificacion</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>flow.error.code</Name>
+        <Value>401</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>flow.error.message</Name>
+        <Value>No estas autorizado, favor de validar</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>flow.error.folio</Name>
+        <Ref>messageid</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>flow.error.errors</Name>
+        <Value>Sin autorización</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>flow.error.http.code</Name>
+        <Value>401</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>flow.error.http.reason</Name>
+        <Value>Unauthorized</Value>
+    </AssignVariable>
+</AssignMessage>
